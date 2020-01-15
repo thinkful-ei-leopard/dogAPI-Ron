@@ -5,18 +5,21 @@
 
 'use strict';
 
-function getDogImage() {
+function getDogImages(num=3) {
     // change the number 3 to another number (1-50) after getting user input
-  fetch('https://dog.ceo/api/breeds/image/random/3')
+  fetch(`https://dog.ceo/api/breeds/image/random/${num}`)
     .then(response => response.json())
-    .then(responseJson => console.log(responseJson));
+    .then(responseJson => console.log(responseJson))
+    .catch(error => console.log(`Error: ${error.message}`));
 }
 
 /** event listener */
 function handleFormSubmit() {
   $('form').submit(event => {
     event.preventDefault();
-    getDogImage();
+    // get input value from form
+    let numberOfDogs = $('input[name=dogNumber]').val();
+    getDogImages(numberOfDogs);
   });
 }
 
