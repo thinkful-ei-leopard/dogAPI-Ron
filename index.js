@@ -9,7 +9,7 @@ function getDogImages(num=3) {
     // change the number 3 to another number (1-50) after getting user input
   fetch(`https://dog.ceo/api/breeds/image/random/${num}`)
     .then(response => response.json())
-    .then(responseJson => console.log(responseJson))
+    .then(responseJson => responseJson.message.forEach(dog => console.log(dog)))
     .catch(error => console.log(`Error: ${error.message}`));
 }
 
@@ -19,7 +19,11 @@ function handleFormSubmit() {
     event.preventDefault();
     // get input value from form
     let numberOfDogs = $('input[name=dogNumber]').val();
-    getDogImages(numberOfDogs);
+    if(numberOfDogs > 50) {
+        console.log('Error: No more than 50 dog images at a time!');
+    } else {
+        getDogImages(numberOfDogs);
+    }
   });
 }
 
