@@ -9,8 +9,22 @@ function getDogImages(num=3) {
     // change the number 3 to another number (1-50) after getting user input
   fetch(`https://dog.ceo/api/breeds/image/random/${num}`)
     .then(response => response.json())
-    .then(responseJson => responseJson.message.forEach(dog => console.log(dog)))
+    .then(responseJson => displayDogs(responseJson))// responseJson.message.forEach(dog => displayDogs(dog)))
     .catch(error => console.log(`Error: ${error.message}`));
+}
+
+function displayDogs(responseJson) {
+    // get results of dogimages into a string
+    // add the string to .results
+    // allDogs 
+    let allDogsHTML = '';
+    responseJson.message.forEach(dog => {
+        console.log(dog);
+        allDogsHTML += `<h2>Look at this dog!</h2>
+        <img src="${dog}" alt="placeholder">`
+    });
+    $('.results').html(allDogsHTML);
+    $('.results').removeClass('hidden');
 }
 
 /** event listener */
