@@ -8,28 +8,28 @@ function getDogImages(breed) {
   fetch(`https://dog.ceo/api/breed/${breed}/images/random`) 
     .then(response => response.json())
     .then(responseJson => {
-        if (responseJson.status === 'success') {
-            displayDogs(responseJson);
-        } else {
-            displayError(responseJson);
-        }
+      if (responseJson.status === 'success') {
+        displayDogs(responseJson);
+      } else {
+        displayError(responseJson);
+      }
     })
     .catch(error => console.log(`Error: ${error.message}`));
 }
 
 function displayDogs(responseJson) {
-    // get results of dogimages into a string
-    // add the string to .results
-    // let allDogsHTML = '';
-    // responseJson.message.forEach(dog => {
-    //     console.log(dog);
-    //     allDogsHTML += `<h2>Look at this dog!</h2>
-    //     <img src="${dog}" alt="placeholder">`
-    // });
-    let dog_html = `<h2>Look at this dog!</h2>
-    <img src="${responseJson.message}" alt="placeholder">`
-    $('.results').html(dog_html);
-    $('.results').removeClass('hidden');
+  // get results of dogimages into a string
+  // add the string to .results
+  let dog_html = `<h2>Look at this dog!</h2>
+    <img src="${responseJson.message}" alt="placeholder">`;
+  $('.results').html(dog_html);
+  $('.results').removeClass('hidden');
+}
+
+function displayError(responseJson) {
+  let dog_html = `<h2>Error! ${responseJson.message}</h2>`;
+  $('.results').html(dog_html);
+  $('.results').removeClass('hidden');
 }
 
 /** event listener */
@@ -39,16 +39,16 @@ function handleFormSubmit() {
     // get input value from form
     let breedOfDogs = $('input[name=dogNumber]').val();
     if(!breedOfDogs) {
-        console.log('Error: Please enter the dog breed');
+      console.log('Error: Please enter the dog breed');
     } else {
-        getDogImages(breedOfDogs);
+      getDogImages(breedOfDogs);
     }
   });
 }
 
 function main() {
-    console.log('App loaded! Waiting for submit!');
-    handleFormSubmit();
+  console.log('App loaded! Waiting for submit!');
+  handleFormSubmit();
 }
 
 $(main);
